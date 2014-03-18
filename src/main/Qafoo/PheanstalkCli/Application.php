@@ -47,6 +47,7 @@ class Application extends BaseApplication
         );
 
         $this->add(new StatsCommand($this->pheanstalkFactory));
+        $this->add(new ListTubesCommand($this->pheanstalkFactory));
     }
 
     public function doRun(InputInterface $input, OutputInterface $output)
