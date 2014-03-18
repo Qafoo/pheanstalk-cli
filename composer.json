@@ -1,0 +1,24 @@
+{
+    "name": "Qafoo/PheanstalkCli",
+    "minimum-stability": "stable",
+    "version": "1.0.0-alpha",
+
+    "require": {
+        "symfony/config" : "2.2.*",
+        "symfony/dependency-injection" : "2.2.*",
+        "pda/pheanstalk": "2.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*@stable"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Qafoo\\PheanstalkCli": ["src/main", "test/phpunit"]
+        }
+    },
+
+    "config": {
+        "bin-dir": "vendor/bin/"
+    }
+}
