@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+
+namespace Qafoo\PheanstalkCli;
+
+require __DIR__ . '/../../vendor/autoload.php';
+
+$application = new Application('1.0.0-alpha');
+$application->run();
