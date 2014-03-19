@@ -18,10 +18,19 @@ class PeekReadyCommand extends Command
     private $pheanstalkFactory;
 
     /**
-     * @param \Qafoo\PheanstalkCli\PheanstalkFactory $pheanstalkFactory
+     * @var \Qafoo\PheanstalkCli\PrettyPrinterLocator
      */
-    public function __construct(PheanstalkFactory $pheanstalkFactory)
+    private $prettyPrinterLocator;
+
+    /**
+     * @param \Qafoo\PheanstalkCli\PheanstalkFactory $pheanstalkFactory
+     * @param \Qafoo\PheanstalkCli\PrettyPrinterLocator $prettyPrinterLocator
+     */
+    public function __construct(PheanstalkFactory $pheanstalkFactory, PrettyPrinterLocator $prettyPrinterLocator)
     {
+        // Needs to be assigned before configure() is called by parent::__construct()
+        $this->prettyPrinterLocator = $prettyPrinterLocator;
+
         parent::__construct();
 
         $this->pheanstalkFactory = $pheanstalkFactory;
@@ -37,6 +46,15 @@ class PeekReadyCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'The tube to peek from',
                 'default'
+            )->addOption(
+                'pretty',
+                'p',
+                InputOption::VALUE_REQUIRED,
+                sprintf(
+                    'Pretty printer to use for payload (%s)',
+                    implode(', ', $this->prettyPrinterLocator->listIdentifiers())
+                ),
+                $this->prettyPrinterLocator->defaultIdentifier()
             );
     }
 
@@ -50,6 +68,9 @@ class PeekReadyCommand extends Command
             $this->formatOutput(
                 $this->pheanstalkFactory->create()->peekReady(
                     $input->getOption('tube')
+                ),
+                $this->prettyPrinterLocator->determinePrinter(
+                    $input->getOption('pretty')
                 )
             )
         );
@@ -57,16 +78,17 @@ class PeekReadyCommand extends Command
 
     /**
      * @param \Pheanstalk_Job $job
+     * @param \Qafoo\PheanstalkCli\PrettyPrinter
      * @return string
      */
-    private function formatOutput(Pheanstalk_Job $job)
+    private function formatOutput(Pheanstalk_Job $job, PrettyPrinter $prettyPrinter)
     {
         return implode(
             "\n",
             array(
                 sprintf('ID: %s', $job->getId()),
                 sprintf('Data:'),
-                $job->getData()
+                $prettyPrinter->format($job->getData())
             )
         );
     }
