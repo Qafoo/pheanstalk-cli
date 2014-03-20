@@ -33,5 +33,5 @@ Vagrant.configure("2") do |config|
         end
     end
 
-    config.vm.synced_folder "./", "/home/vagrant/pheanstalk-cli", :nfs => (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
+    config.vm.synced_folder "../", "/home/vagrant/pheanstalk-cli", :nfs => (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
 end
