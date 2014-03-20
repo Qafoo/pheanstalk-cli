@@ -43,6 +43,16 @@ class SystemTest extends \PHPUnit_Framework_TestCase
         $this->binPath = __DIR__ . '/../../../../src/bin/pheanstalk-cli';
     }
 
+    public function testStatsCommand()
+    {
+        $result = `{$this->binPath} stats`;
+
+        $this->assertRegexp(
+            '(current-jobs-urgent:)',
+            $result
+        );
+    }
+
     public function testListTubesCommand()
     {
         $result = `{$this->binPath} list-tubes`;
