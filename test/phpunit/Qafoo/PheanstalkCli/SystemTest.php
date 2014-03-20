@@ -24,7 +24,7 @@ class SystemTest extends \PHPUnit_Framework_TestCase
         $factory = new PheanstalkFactory();
         self::$pheanstalk = $factory->create();
 
-        self::$testJobId = self::$pheanstalk->putInTube('test-tube', 'test-data');
+        self::$testJobId = self::$pheanstalk->putInTube('test-tube', 'i:23;');
     }
 
     public static function tearDownAfterClass()
@@ -68,7 +68,17 @@ class SystemTest extends \PHPUnit_Framework_TestCase
         $result = `{$this->binPath} peek-ready -t test-tube`;
 
         $this->assertEquals(
-            sprintf("ID: %s\nData:\ntest-data\n", self::$testJobId),
+            sprintf("ID: %s\nData:\ni:23;\n", self::$testJobId),
+            $result
+        );
+    }
+
+    public function testPeekReadyPrettyCommand()
+    {
+        $result = `{$this->binPath} peek-ready -t test-tube --pretty serialized-php`;
+
+        $this->assertEquals(
+            sprintf("ID: %s\nData:\nint(23)\n", self::$testJobId),
             $result
         );
     }
