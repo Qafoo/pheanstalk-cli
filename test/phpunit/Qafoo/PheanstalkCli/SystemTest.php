@@ -73,6 +73,18 @@ class SystemTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testStatsJobCommand()
+    {
+        $testJobId = self::$testJobId;
+
+        $result = `{$this->binPath} stats-job {$testJobId}`;
+
+        $this->assertRegexp(
+            '(tube: test-tube)',
+            $result
+        );
+    }
+
     public function testDeleteCommand()
     {
         $testJobId = self::$testJobId;
