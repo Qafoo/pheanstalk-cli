@@ -10,6 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Pheanstalk_PheanstalkInterface;
 use Pheanstalk_Pheanstalk;
 
+use Qafoo\SerPretty\Parser;
+use Qafoo\SerPretty\Writer\SimpleTextWriter;
+
 class Application extends BaseApplication
 {
     const DEFAULT_HOST = '127.0.0.1';
@@ -26,6 +29,15 @@ class Application extends BaseApplication
         parent::__construct('pheanstalk-cli, a beanstalk cli', $version);
 
         $this->pheanstalkFactory = new PheanstalkFactory();
+        $this->prettyPrinterLocator = new PrettyPrinterLocator(
+            array(
+                'none' => new PrettyPrinter\NonePrettyPrinter(),
+                'serialized-php' => new PrettyPrinter\PhpSerializedPrettyPrinter(
+                    new Parser(),
+                    new SimpleTextWriter()
+                ),
+            )
+        );
 
         $this->getDefinition()->addOption(
             new InputOption(
@@ -49,7 +61,7 @@ class Application extends BaseApplication
         $this->add(new StatsCommand($this->pheanstalkFactory));
         $this->add(new StatsJobCommand($this->pheanstalkFactory));
         $this->add(new ListTubesCommand($this->pheanstalkFactory));
-        $this->add(new PeekReadyCommand($this->pheanstalkFactory));
+        $this->add(new PeekReadyCommand($this->pheanstalkFactory, $this->prettyPrinterLocator));
         $this->add(new DeleteCommand($this->pheanstalkFactory));
     }
 
