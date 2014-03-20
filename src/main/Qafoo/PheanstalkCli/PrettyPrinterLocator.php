@@ -37,6 +37,15 @@ class PrettyPrinterLocator
     }
 
     /**
+     * @return string
+     */
+    public function defaultIdentifier()
+    {
+        $identifiers = $this->listIdentifiers();
+        return $identifiers[0];
+    }
+
+    /**
      * @param string $identifier
      * @return \Qafoo\PheanstalkCli\PrettyPrinter
      * @throws \RuntimeException if no printer for $identifier was found
