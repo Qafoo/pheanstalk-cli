@@ -1,0 +1,8 @@
+---
+- hosts: test
+  sudo: yes
+  roles:
+    - role: netselect
+    - role: basics
+    - role: php
+    - role: beanstalk

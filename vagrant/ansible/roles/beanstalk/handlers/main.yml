@@ -1,0 +1,3 @@
+---
+- name: Restart Beanstalk Daemon
+  service: name={{ beanstalk_service }} state=restarted

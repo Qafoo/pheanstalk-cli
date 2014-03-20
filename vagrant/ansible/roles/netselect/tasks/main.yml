@@ -1,0 +1,36 @@
+---
+- name: Create /opt/provisioning-deps directory
+  file: >
+    path=/opt/provisioning-deps
+    state=directory
+
+- name: Copy netselect package to /opt/provisiong-deps/
+  copy: >
+    src=netselect_0.3.ds1-14+squeeze1_amd64.deb
+    dest=/opt/provisioning-deps/netselect_0.3.ds1-14+squeeze1_amd64.deb
+    owner=root
+    group=root
+
+- name: Install netselect
+  sudo: yes
+  command: dpkg --skip-same-version -i /opt/provisioning-deps/netselect_0.3.ds1-14+squeeze1_amd64.deb
+  register: dpkg_result
+  changed_when: "'already installed' not in dpkg_result.stderr"
+
+- name: Create /usr/local/bin
+  file: >
+    path=/usr/local/bin
+    state=directory
+
+- name: Copy netselect-mirror.sh package to /usr/local/bin/
+  copy: >
+    src=netselect-mirror.sh
+    dest=/usr/local/bin/netselect-mirror.sh
+    owner=root
+    group=root
+    mode=755
+
+- name: Find fastest mirror using netselect
+  command: >
+    /usr/local/bin/netselect-mirror.sh
+    creates=/etc/apt/.sources.managed.by.ansible

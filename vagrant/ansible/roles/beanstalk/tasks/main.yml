@@ -1,0 +1,9 @@
+---
+- name: Install Beanstalk
+  tags: [online]
+  apt: pkg=beanstalkd state=latest
+  notify: Restart Beanstalk Daemon
+
+- name: Enable Beanstalk Daemon
+  template: src=beanstalkd.in dest=/etc/default/beanstalkd owner=root group=root mode=0644
+  notify: Restart Beanstalk Daemon
