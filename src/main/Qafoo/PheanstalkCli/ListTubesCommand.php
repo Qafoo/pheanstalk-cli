@@ -33,7 +33,7 @@ class ListTubesCommand extends Command
     }
 
     /**
-     * @param \Symfony\Command\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
