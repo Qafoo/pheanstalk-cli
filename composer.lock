@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "849790111a2a8a6841faf61a62eb8c31",
+    "hash": "7a271d4bf400410f73059c6a8219694c",
     "packages": [
         {
             "name": "pda/pheanstalk",
@@ -53,12 +53,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Qafoo/ser-pretty.git",
-                "reference": "f8fceba4127edbef9b424b3be190fa68e4b84376"
+                "reference": "837e3534db0292745343ac62cb6028185cfb092a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Qafoo/ser-pretty/zipball/f8fceba4127edbef9b424b3be190fa68e4b84376",
-                "reference": "f8fceba4127edbef9b424b3be190fa68e4b84376",
+                "url": "https://api.github.com/repos/Qafoo/ser-pretty/zipball/837e3534db0292745343ac62cb6028185cfb092a",
+                "reference": "837e3534db0292745343ac62cb6028185cfb092a",
                 "shasum": ""
             },
             "require-dev": {
@@ -82,79 +82,36 @@
             ],
             "description": "Pretty print serialized PHP data",
             "homepage": "https://github.com/Qafoo/ser-pretty",
-            "time": "2014-03-19 16:09:28"
-        },
-        {
-            "name": "symfony/config",
-            "version": "v2.2.11",
-            "target-dir": "Symfony/Component/Config",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Config.git",
-                "reference": "d7431c4327912d2cee2ef10619ede0583a88ad50"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/d7431c4327912d2cee2ef10619ede0583a88ad50",
-                "reference": "d7431c4327912d2cee2ef10619ede0583a88ad50",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Config\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Config Component",
-            "homepage": "http://symfony.com",
-            "time": "2013-11-25 08:44:14"
+            "time": "2014-04-03 10:42:41"
         },
         {
             "name": "symfony/console",
-            "version": "v2.2.11",
+            "version": "v2.4.2",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "89e82ad2d09ce753359efc942ce6309053023c47"
+                "reference": "940f217cbc3c8a33e5403e7c595495c4884400fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/89e82ad2d09ce753359efc942ce6309053023c47",
-                "reference": "89e82ad2d09ce753359efc942ce6309053023c47",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/940f217cbc3c8a33e5403e7c595495c4884400fe",
+                "reference": "940f217cbc3c8a33e5403e7c595495c4884400fe",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
+            "require-dev": {
+                "symfony/event-dispatcher": "~2.1"
+            },
+            "suggest": {
+                "symfony/event-dispatcher": ""
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -180,64 +137,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-11-25 08:44:14"
-        },
-        {
-            "name": "symfony/dependency-injection",
-            "version": "v2.2.11",
-            "target-dir": "Symfony/Component/DependencyInjection",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/DependencyInjection.git",
-                "reference": "0e726f0172a8cc36fcb28c2b4f1198292d825594"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/0e726f0172a8cc36fcb28c2b4f1198292d825594",
-                "reference": "0e726f0172a8cc36fcb28c2b4f1198292d825594",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "symfony/config": ">=2.2,<2.3-dev",
-                "symfony/yaml": "~2.0"
-            },
-            "suggest": {
-                "symfony/config": "2.2.*",
-                "symfony/yaml": "2.2.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\DependencyInjection\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony DependencyInjection Component",
-            "homepage": "http://symfony.com",
-            "time": "2013-11-25 08:44:14"
+            "time": "2014-02-11 13:52:09"
         }
     ],
     "packages-dev": [
@@ -663,8 +563,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "qafoo/ser-pretty": 20,
-        "phpunit/phpunit": 0
+        "qafoo/ser-pretty": 20
     },
     "platform": [
 
