@@ -10,6 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Pheanstalk_PheanstalkInterface;
 use Pheanstalk_Job;
 
+/**
+ * @deprecated This command will be renamed from 'peek-ready' to 'peek'.
+ */
 class PeekReadyCommand extends Command
 {
     /**
@@ -21,6 +24,20 @@ class PeekReadyCommand extends Command
      * @var \Qafoo\PheanstalkCli\PrettyPrinterLocator
      */
     private $prettyPrinterLocator;
+
+    /**
+     * @var array
+     */
+    private $jobStateMap = array(
+        'ready' => 'peekReady',
+        'delayed' => 'peekDelayed',
+        'buried' => 'peekBuried',
+    );
+
+    /**
+     * @var string
+     */
+    private $defaultJobState= 'ready';
 
     /**
      * @param \Qafoo\PheanstalkCli\PheanstalkFactory $pheanstalkFactory
@@ -55,6 +72,15 @@ class PeekReadyCommand extends Command
                     implode(', ', $this->prettyPrinterLocator->listIdentifiers())
                 ),
                 $this->prettyPrinterLocator->defaultIdentifier()
+            )->addOption(
+                'state',
+                's',
+                InputOption::VALUE_REQUIRED,
+                sprintf(
+                    'State of the job to peek (%s)',
+                    implode(', ', array_keys($this->jobStateMap))
+                ),
+                $this->defaultJobState
             );
     }
 
@@ -64,9 +90,14 @@ class PeekReadyCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $jobState = $input->getOption('state');
+        $this->assertInputStateValid($jobState);
+
+        $peekMethod = $this->jobStateMap[$jobState];
+
         $output->writeln(
             $this->formatOutput(
-                $this->pheanstalkFactory->create()->peekReady(
+                $this->pheanstalkFactory->create()->$peekMethod(
                     $input->getOption('tube')
                 ),
                 $this->prettyPrinterLocator->determinePrinter(
@@ -74,6 +105,19 @@ class PeekReadyCommand extends Command
                 )
             )
         );
+    }
+
+    /**
+     * @param string $inputState
+     * @throws \InvalidArgumentException if $inputState is not valid
+     */
+    private function assertInputStateValid($inputState)
+    {
+        if (!isset($this->jobStateMap[$inputState])) {
+            throw new \InvalidArgumentException(
+                sprintf('Invalid job state "%s", valid are: ', $inputState, $this->validStates())
+            );
+        }
     }
 
     /**
