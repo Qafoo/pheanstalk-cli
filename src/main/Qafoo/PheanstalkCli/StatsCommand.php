@@ -4,6 +4,7 @@ namespace Qafoo\PheanstalkCli;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use Pheanstalk_PheanstalkInterface;
@@ -29,7 +30,14 @@ class StatsCommand extends Command
     protected function configure()
     {
         $this->setName('stats')
-            ->setDescription('Show stats');
+            ->setDescription('Show stats')
+            ->addOption(
+                'tube',
+                't',
+                InputOption::VALUE_REQUIRED,
+                'The tube to display stats for',
+                null
+            );
     }
 
     /**
@@ -38,9 +46,13 @@ class StatsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $tube = $input->getOption('tube');
+
         $output->writeln(
             $this->formatOutput(
-                $this->pheanstalkFactory->create()->stats()
+                ($tube === null
+                    ? $this->pheanstalkFactory->create()->stats()
+                    : $this->pheanstalkFactory->create()->statsTube($tube))
             )
         );
     }
