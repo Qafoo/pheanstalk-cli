@@ -61,6 +61,8 @@ class Application extends BaseApplication
         $this->add(new StatsCommand($this->pheanstalkFactory));
         $this->add(new StatsJobCommand($this->pheanstalkFactory));
         $this->add(new ListTubesCommand($this->pheanstalkFactory));
+        $this->add(new PeekCommand($this->pheanstalkFactory, $this->prettyPrinterLocator));
+        // @deprecated
         $this->add(new PeekReadyCommand($this->pheanstalkFactory, $this->prettyPrinterLocator));
         $this->add(new DeleteCommand($this->pheanstalkFactory));
     }
