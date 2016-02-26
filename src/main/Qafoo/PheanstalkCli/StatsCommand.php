@@ -61,7 +61,7 @@ class StatsCommand extends Command
 
         foreach ($tubes as $tube) {
             $output->writeln(
-                $this->formatOutput($pheanstalk->stats(), $tube)
+                $this->formatOutput($pheanstalk->statsTube($tube), $tube)
             );
         }
     }
