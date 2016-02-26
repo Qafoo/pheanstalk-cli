@@ -47,23 +47,32 @@ class StatsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $tube = $input->getOption('tube');
+        $pheanstalk = $this->pheanstalkFactory->create();
 
         $output->writeln(
-            $this->formatOutput(
-                ($tube === null
-                    ? $this->pheanstalkFactory->create()->stats()
-                    : $this->pheanstalkFactory->create()->statsTube($tube))
-            )
+            $this->formatOutput($pheanstalk->stats(), 'Server-Wide')
         );
+
+        if ($tube) {
+            $tubes = [$tube];
+        } else {
+            $tubes = $pheanstalk->listTubes();
+        }
+
+        foreach ($tubes as $tube) {
+            $output->writeln(
+                $this->formatOutput($pheanstalk->stats(), $tube)
+            );
+        }
     }
 
     /**
      * @param \Pheanstalk_Response_ArrayResponse $stats
      * @return string
      */
-    private function formatOutput(Pheanstalk_Response_ArrayResponse $stats)
+    private function formatOutput(Pheanstalk_Response_ArrayResponse $stats, $name)
     {
-        $formattedStats = array();
+        $formattedStats = array('== Showing <info>' . $name . '</info> stats ==');
         foreach ($stats as $key => $value) {
             $formattedStats[] = sprintf(
                 '%25s: %-10s',
