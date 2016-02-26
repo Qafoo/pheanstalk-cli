@@ -3,6 +3,7 @@
     "version": "1.0.0-alpha",
 
     "require": {
+        "php": ">5.4",
         "symfony/console": "~2.3",
         "pda/pheanstalk": "2.1.*",
         "qafoo/ser-pretty": "dev-master"
@@ -16,6 +17,8 @@
             "Qafoo\\PheanstalkCli": ["src/main", "test/phpunit"]
         }
     },
+
+    "bin": ["src/bin/pheanstalk-cli"],
 
     "config": {
         "bin-dir": "vendor/bin/"
